@@ -18,6 +18,8 @@ public class FlickrImage implements  Parcelable{
     private String ownerName;
     private String description;
 
+    public FlickrImage () { }
+
     public FlickrImage (String title, String imageUrl, String dateTaken, String ownerName, String description){
         setTitle(title);
         setImageUrl(imageUrl);

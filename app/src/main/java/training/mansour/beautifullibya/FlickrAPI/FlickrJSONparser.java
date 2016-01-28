@@ -36,16 +36,6 @@ public class FlickrJSONparser {
 
                     String imageUrl = "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + "_t.jpg";
 
-/*                    FlickrImage model = new FlickrImage(null);
-
-                    model.setImageUrl(imageUrl);
-                    model.setTitle(jsonObj.getString("title"));
-                    model.setDateTaken(jsonObj.getString("datetaken"));
-                    model.setOwnerName(jsonObj.getString("ownername"));
-
-                    String content = descriptionContent.getString("_content");
-                    model.setDescription(content);*/
-
                     JSONObject descriptionContent = jsonObj.getJSONObject("description");
 
                     mImages.add(new FlickrImage(jsonObj.getString("title"),
@@ -60,6 +50,11 @@ public class FlickrJSONparser {
             }
         }
         return mImages;
+    }
+
+    //TODO
+    private boolean contains (JSONObject parsrObject, String key){
+        return (parsrObject != null && parsrObject.has(key) && !parsrObject.isNull(key)) ? true : false ;
     }
 
 
