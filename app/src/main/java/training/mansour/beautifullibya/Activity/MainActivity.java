@@ -3,6 +3,7 @@ package training.mansour.beautifullibya.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ComponentName;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.tatarka.support.job.JobInfo;
+import me.tatarka.support.job.JobScheduler;
+import me.tatarka.support.job.JobService;
 import training.mansour.beautifullibya.Fragments.SecondFragment;
 import training.mansour.beautifullibya.Fragments.InitialFragment;
 import training.mansour.beautifullibya.Fragments.FlickrGroupPhotos;
 import training.mansour.beautifullibya.R;
+import training.mansour.beautifullibya.Services.MyService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +34,9 @@ public class MainActivity extends AppCompatActivity
     private final static int INITIAL_FRAGMENT = 0;
     private final static int SECOND_FRAGMENT = 1;
     private final static int FLICKR_FRAGMENT = 2;
+    private static final int JOB_ID = 100;
     private  int CurrentFragment ;
+    private JobScheduler jobScheduler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        jobScheduler = JobScheduler.getInstance(this);
+        jobConrtuct();
 
         if(savedInstanceState == null){
             swithPage(new InitialFragment());
@@ -140,5 +150,13 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.content_fragment, fragment);
         transaction.commit();
 
+    }
+
+    private void jobConrtuct () {
+        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
+        builder.setPeriodic(5000)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                .setPersisted(true);
+        jobScheduler.schedule(builder.build());
     }
 }
