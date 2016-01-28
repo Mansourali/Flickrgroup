@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Beautiful Libya</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="error_timeout">The connection could not be established</string>
+    <string name="network_error">Please make sure you are connected to Internet and try again</string>
+    <string name="server_error">Service time out</string>
+    <string name="auth_failure_error">Authentication error with Flickr</string>
+    <string name="parse_error">The data received from Flickr is unreadable</string>
+</resources>
