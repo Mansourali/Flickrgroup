@@ -49,11 +49,24 @@ public class ImagesDatabase {
         String[] columns = {mImageHelper.COLUMN_TITLE, mImageHelper.COLUMN_IMAGE_URL,
         mImageHelper.COLUMN_DATA_TAKEN, mImageHelper.COLUMN_OWNER_NAME, mImageHelper.COLUMN_DESCRIPTION};
 
-
+        Cursor cursor = mSQLiteDatabase.query(mImageHelper.TABLE_GROUP_IMAGES, columns, null,null,null,null,null);
+        if (cursor != null && cursor.moveToFirst()){
+            do {
+                FlickrImagesLists.add(new FlickrImage(
+                        cursor.getString(cursor.getColumnIndex(ImageHelper.COLUMN_TITLE)),
+                        cursor.getString(cursor.getColumnIndex(ImageHelper.COLUMN_IMAGE_URL)),
+                        cursor.getString(cursor.getColumnIndex(ImageHelper.COLUMN_DATA_TAKEN)),
+                        cursor.getString(cursor.getColumnIndex(ImageHelper.COLUMN_OWNER_NAME)),
+                        cursor.getString(cursor.getColumnIndex(ImageHelper.COLUMN_DESCRIPTION))
+                ));
+            }
+            while (cursor.moveToNext());
+        }
+        return FlickrImagesLists;
     }
 
     private void deleteALL() {
-
+        mSQLiteDatabase.delete(mImageHelper.TABLE_GROUP_IMAGES, null,null);
     }
 
     private class ImageHelper extends SQLiteOpenHelper {
