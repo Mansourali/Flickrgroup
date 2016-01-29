@@ -19,6 +19,7 @@ public class FlickrJSONparser {
 
         ArrayList<FlickrImage> mImages = new ArrayList<>();
         if(response.has("photos")) {
+
             try {
                 JSONObject photos = response.getJSONObject("photos");
                 JSONArray items = photos.getJSONArray("photo");
@@ -56,6 +57,5 @@ public class FlickrJSONparser {
     private boolean contains (JSONObject parsrObject, String key){
         return (parsrObject != null && parsrObject.has(key) && !parsrObject.isNull(key)) ? true : false ;
     }
-
 
 }
