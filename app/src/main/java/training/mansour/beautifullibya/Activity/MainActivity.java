@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     private final static int SECOND_FRAGMENT = 1;
     private final static int FLICKR_FRAGMENT = 2;
     private static final int JOB_ID = 100;
-    private  int CurrentFragment ;
+    private int CurrentFragment ;
     private JobScheduler jobScheduler;
 
     @Override

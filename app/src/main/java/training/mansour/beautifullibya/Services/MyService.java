@@ -82,6 +82,7 @@ public class MyService extends JobService {
 
             try {
                 flickrImageArrayList = FlickrJSONparser.parseFlickrImageResponse(sendJSONrequest());
+                Log.e("PHP", "Parsing Flickr photo in background");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
