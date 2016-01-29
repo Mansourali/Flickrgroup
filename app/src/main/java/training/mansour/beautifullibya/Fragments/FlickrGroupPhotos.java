@@ -2,8 +2,10 @@ package training.mansour.beautifullibya.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import training.mansour.beautifullibya.Adapter.FlickrPhotoAdapter;
+import training.mansour.beautifullibya.CallBacks.FlickrPhotosLoadedListener;
 import training.mansour.beautifullibya.FlickrAPI.FlickrImage;
 import training.mansour.beautifullibya.MyApplication;
 import training.mansour.beautifullibya.R;
+import training.mansour.beautifullibya.Task.TaskLoadFlickrImages;
 
 
-public class FlickrGroupPhotos extends Fragment {
+public class FlickrGroupPhotos extends Fragment implements FlickrPhotosLoadedListener{
 
     private static final String STATE_FLICKE = "state_flickr";
     private ArrayList<FlickrImage> mFlickrPhotoList;
@@ -48,7 +52,7 @@ public class FlickrGroupPhotos extends Fragment {
         recyclerView = (RecyclerView) layout.findViewById(R.id.fragment_recycler_view);
         volleyError = (TextView) layout.findViewById(R.id.fragment_volley_error);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         flickrPhotoAdapter = new FlickrPhotoAdapter(getActivity());
         recyclerView.setAdapter(flickrPhotoAdapter);
 
@@ -58,9 +62,16 @@ public class FlickrGroupPhotos extends Fragment {
         } else {
             mFlickrPhotoList = MyApplication.getWritableDatabase().getAllFlickrImages();
             Toast.makeText(getActivity(), "First time data", Toast.LENGTH_LONG).show();
+            if (mFlickrPhotoList.isEmpty()){
+                new TaskLoadFlickrImages(this).execute();
+            }
         }
         flickrPhotoAdapter.setFlickrImages(mFlickrPhotoList);
         return layout;
     }
 
+    @Override
+    public void onFlickrPhotosLoaded(ArrayList<FlickrImage> flickrImages) {
+        flickrPhotoAdapter.setFlickrImages(flickrImages);
+    }
 }

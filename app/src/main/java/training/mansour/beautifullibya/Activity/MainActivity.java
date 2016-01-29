@@ -5,10 +5,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.graphics.ColorUtils;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +21,6 @@ import android.view.MenuItem;
 
 import me.tatarka.support.job.JobInfo;
 import me.tatarka.support.job.JobScheduler;
-import me.tatarka.support.job.JobService;
 import training.mansour.beautifullibya.Fragments.SecondFragment;
 import training.mansour.beautifullibya.Fragments.InitialFragment;
 import training.mansour.beautifullibya.Fragments.FlickrGroupPhotos;
@@ -46,7 +45,12 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         jobScheduler = JobScheduler.getInstance(this);
-        jobConrtuct();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                jobConstruction();
+            }
+        },60000);
 
         if(savedInstanceState == null){
             swithPage(new InitialFragment());
@@ -152,7 +156,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void jobConrtuct () {
+    private void jobConstruction() {
         JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
         builder.setPeriodic(5000)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)

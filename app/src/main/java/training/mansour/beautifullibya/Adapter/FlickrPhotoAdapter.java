@@ -49,8 +49,8 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
         @Override
         public void onBindViewHolder(final ViewHolderFlickrGroup holder, int position) {
 
-             holder.titleTextView.setText(flickrImages.get(position).getTitle());
-            holder.ownernameTextView.setText(flickrImages.get(position).getOwnerName());
+            // holder.titleTextView.setText(flickrImages.get(position).getTitle());
+           // holder.ownernameTextView.setText(flickrImages.get(position).getOwnerName());
              imageLoader.get(flickrImages.get(position).getImageUrl(), new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -78,8 +78,8 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
             public ViewHolderFlickrGroup(View itemView) {
                 super(itemView);
                 imageView = (ImageView) itemView.findViewById(R.id.list_view_image);
-                titleTextView = (TextView) itemView.findViewById(R.id.list_view_title);
-                ownernameTextView = (TextView) itemView.findViewById(R.id.list_view_ownername);
+            //    titleTextView = (TextView) itemView.findViewById(R.id.list_view_title);
+              //  ownernameTextView = (TextView) itemView.findViewById(R.id.list_view_ownername);
             }
         }
 

@@ -13,7 +13,7 @@ public class FlickrEndPointUrl {
 
     private static Uri.Builder builder;
 
-    public static Uri.Builder getBaseFlickrPhotosURL() {
+    private static Uri.Builder getBaseFlickrPhotosURL() {
 
         String url = "https://api.flickr.com/services/rest/?";
         builder = Uri.parse(url).buildUpon();
@@ -25,6 +25,14 @@ public class FlickrEndPointUrl {
         builder.appendQueryParameter("nojsoncallback", "1");
 
         return  builder;
+    }
+
+    public static String getFlickrPhotosForSpecificGroupUrl() {
+        Uri.Builder builder = Uri.parse(FlickrEndPointUrl.getBaseFlickrPhotosURL().toString()).buildUpon();
+        builder.appendQueryParameter("method", "flickr.groups.pools.getPhotos");
+        builder.appendQueryParameter("group_id", "635414@N21");
+        Log.e("PHP", "FLICKR JSON URL IS CALLED");
+        return builder.toString();
     }
 
 }
