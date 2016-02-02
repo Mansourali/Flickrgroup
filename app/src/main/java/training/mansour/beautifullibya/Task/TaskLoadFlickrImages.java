@@ -1,6 +1,7 @@
 package training.mansour.beautifullibya.Task;
 
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 
@@ -11,12 +12,13 @@ import java.util.ArrayList;
 import training.mansour.beautifullibya.CallBacks.FlickrPhotosLoadedListener;
 import training.mansour.beautifullibya.Extras.PhotosUtils;
 import training.mansour.beautifullibya.FlickrAPI.FlickrImage;
+import training.mansour.beautifullibya.MyApplication;
 import training.mansour.beautifullibya.Network.VolleySinglton;
 
 /**
  * Created by Mansour on 29/01/2016.
  */
-public class TaskLoadFlickrImages extends AsyncTask<Void, Void, ArrayList<FlickrImage>>{
+public class TaskLoadFlickrImages extends AsyncTask<Integer, Void, ArrayList<FlickrImage>>{
 
     private FlickrPhotosLoadedListener photosLoadedListener ;
     private VolleySinglton volleySinglton;
@@ -29,14 +31,16 @@ public class TaskLoadFlickrImages extends AsyncTask<Void, Void, ArrayList<Flickr
     }
 
     @Override
-    protected ArrayList<FlickrImage> doInBackground(Void... voids) {
+    protected ArrayList<FlickrImage> doInBackground(Integer... Page) {
         ArrayList<FlickrImage> flickrImages = new ArrayList<>();
+        Integer page = Page[0];
         try {
-            flickrImages = PhotosUtils.LoadFlickrPhotos(requestQueue);
+            flickrImages = PhotosUtils.LoadFlickrPhotos(requestQueue, page);
         } catch (JSONException e) {
+            Toast.makeText(MyApplication.getAppContext(), "Error when connecting to Flickr", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        return flickrImages ;
+        return flickrImages;
     }
 
     @Override

@@ -17,15 +17,22 @@ public class FlickrImage implements  Parcelable{
 	private String dateTaken;
     private String ownerName;
     private String description;
+    private String buddyIcon;
+    private String latitude;
+    private String longitude;
 
     public FlickrImage () { }
 
-    public FlickrImage (String title, String imageUrl, String dateTaken, String ownerName, String description){
+    public FlickrImage (String title, String imageUrl, String dateTaken, String ownerName,
+                        String description, String buddyIcon, String latitude,  String longitude){
         setTitle(title);
         setImageUrl(imageUrl);
         setDateTaken(dateTaken);
         setOwnerName(ownerName);
         setDescription(description);
+        setBuddyIcon ( buddyIcon );
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
 
     protected FlickrImage(Parcel in) {
@@ -34,6 +41,9 @@ public class FlickrImage implements  Parcelable{
         dateTaken = in.readString();
         ownerName = in.readString();
         description = in.readString();
+        buddyIcon = in.readString ();
+        latitude = in.readString();
+        longitude = in.readString();
     }
 
     public static final Creator<FlickrImage> CREATOR = new Creator<FlickrImage>() {
@@ -85,6 +95,32 @@ public class FlickrImage implements  Parcelable{
         parcel.writeString(dateTaken);
         parcel.writeString(ownerName);
         parcel.writeString(description);
+        parcel.writeString (buddyIcon);
+        parcel.writeString(latitude);
+        parcel.writeString(longitude);
     }
 
+    public String getBuddyIcon ( ) {
+        return buddyIcon;
+    }
+
+    public void setBuddyIcon (String buddyIcon) {
+        this.buddyIcon = buddyIcon;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }

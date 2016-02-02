@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/list_view_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:transitionName="imageCover"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:layout_gravity="bottom"
+        android:id="@+id/photocontainer"
+        android:background="#33ffffff">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textcontainer"
+            android:layout_alignParentEnd="true"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_image_author"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="15sp"
+                android:text="@string/hello_blank_fragment"/>
+
+            <TextView
+                android:id="@+id/item_image_date"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="2dp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textSize="15sp"
+                android:text="@string/hello_blank_fragment"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="6dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/owner_buddy_icon"
+            android:padding="1dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/primary_light"/>
+
+    </RelativeLayout>
+</FrameLayout>

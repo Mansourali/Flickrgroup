@@ -14,7 +14,9 @@ import com.android.volley.toolbox.ImageLoader;
 
 import java.util.ArrayList;
 
+import training.mansour.beautifullibya.Extras.FadeInImageListener;
 import training.mansour.beautifullibya.FlickrAPI.FlickrImage;
+import training.mansour.beautifullibya.MyApplication;
 import training.mansour.beautifullibya.Network.VolleySinglton;
 import training.mansour.beautifullibya.R;
 
@@ -28,7 +30,7 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
         private VolleySinglton volleySinglton;
         private ImageLoader imageLoader;
 
-        public FlickrPhotoAdapter (Context context) {
+    public FlickrPhotoAdapter (Context context) {
             layoutInflater = LayoutInflater.from(context);
             volleySinglton = VolleySinglton.getInstance();
             imageLoader = volleySinglton.getImageLoader();
@@ -41,7 +43,7 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
 
         @Override
         public ViewHolderFlickrGroup onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = layoutInflater.inflate(R.layout.list_item, parent, false);
+            View view = layoutInflater.inflate(R.layout.list_item_normal_image, parent, false);
             ViewHolderFlickrGroup viewHolderFlickrGroup = new ViewHolderFlickrGroup(view);
             return viewHolderFlickrGroup;
         }
@@ -49,19 +51,15 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
         @Override
         public void onBindViewHolder(final ViewHolderFlickrGroup holder, int position) {
 
-            // holder.titleTextView.setText(flickrImages.get(position).getTitle());
-           // holder.ownernameTextView.setText(flickrImages.get(position).getOwnerName());
-             imageLoader.get(flickrImages.get(position).getImageUrl(), new ImageLoader.ImageListener() {
-                    @Override
-                    public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                        holder.imageView.setImageBitmap(response.getBitmap());
-                    }
+             holder.dateTakenTextView.setText(flickrImages.get(position).getDateTaken ());
+             holder.ownernameTextView.setText(flickrImages.get(position).getOwnerName());
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //TODO DEFAULT image
-                    }
-                });
+            imageLoader.get(flickrImages.get(position).getImageUrl(),
+                    new FadeInImageListener(holder.flcikrImageView, MyApplication.getAppContext()));
+
+            imageLoader.get(flickrImages.get(position).getBuddyIcon(),
+                    new FadeInImageListener(holder.buddyIconImage, MyApplication.getAppContext()));
+
         }
 
         @Override
@@ -71,17 +69,18 @@ public class FlickrPhotoAdapter extends RecyclerView.Adapter<FlickrPhotoAdapter.
 
         static class ViewHolderFlickrGroup extends RecyclerView.ViewHolder {
 
-            private ImageView imageView;
-            private TextView titleTextView;
+            private ImageView flcikrImageView;
+            private TextView dateTakenTextView;
             private TextView ownernameTextView;
+            private ImageView buddyIconImage;
 
             public ViewHolderFlickrGroup(View itemView) {
                 super(itemView);
-                imageView = (ImageView) itemView.findViewById(R.id.list_view_image);
-            //    titleTextView = (TextView) itemView.findViewById(R.id.list_view_title);
-              //  ownernameTextView = (TextView) itemView.findViewById(R.id.list_view_ownername);
+                flcikrImageView = (ImageView) itemView.findViewById(R.id.list_view_image);
+                dateTakenTextView = (TextView) itemView.findViewById(R.id.item_image_date);
+                ownernameTextView = (TextView) itemView.findViewById(R.id.item_image_author);
+                buddyIconImage = (ImageView) itemView.findViewById(R.id.owner_buddy_icon);
             }
         }
-
-    }
+}
 

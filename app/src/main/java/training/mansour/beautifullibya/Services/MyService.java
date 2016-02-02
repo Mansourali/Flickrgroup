@@ -3,6 +3,7 @@ package training.mansour.beautifullibya.Services;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,9 +37,9 @@ public class MyService extends JobService implements FlickrPhotosLoadedListener{
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        new TaskLoadFlickrImages(this).execute();
+        new TaskLoadFlickrImages(this).execute(1);
         jobParameters = params;
-        Log.e("PHP", "MYservice JOB STARTED");
+        Log.i("PHP", "MY-SERVICE JOB STARTED");
         return true;
     }
 

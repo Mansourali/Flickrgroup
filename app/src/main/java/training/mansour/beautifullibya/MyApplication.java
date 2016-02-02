@@ -27,7 +27,7 @@ public class MyApplication extends Application {
     public synchronized static ImagesDatabase getWritableDatabase(){
         if (FlickrImageDB == null )
             FlickrImageDB = new ImagesDatabase(getAppContext());
-        Log.e("PHP", "My application database created");
+        Log.e("PHP", "My application  getWritableDatabase is called");
         return FlickrImageDB;
     }
 

@@ -1,5 +1,6 @@
 package training.mansour.beautifullibya.FlickrAPI;
 
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,7 +19,8 @@ public class FlickrJSONparser {
     public static ArrayList<FlickrImage> parseFlickrImageResponse(JSONObject response) throws JSONException {
 
         ArrayList<FlickrImage> mImages = new ArrayList<>();
-        if(response.has("photos")) {
+
+        if(contains(response,"photos")) {
 
             try {
                 JSONObject photos = response.getJSONObject("photos");
@@ -35,26 +37,37 @@ public class FlickrJSONparser {
                     String secret = jsonObj.getString("secret");
                     String server = jsonObj.getString("server");
 
-                    String imageUrl = "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + "_t.jpg";
+                    String imageUrl = "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + "_c.jpg";
+
+                    String userNSID = jsonObj.getString ( "owner" );
+                    String buddyIcon = "http://flickr.com/buddyicons/" + userNSID + ".jpg";
+
+                    String dateString = jsonObj.getString("datetaken");
+                    String datetaken  = dateString.split(" ")[0];
 
                     JSONObject descriptionContent = jsonObj.getJSONObject("description");
 
                     mImages.add(new FlickrImage(jsonObj.getString("title"),
                             imageUrl,
-                            jsonObj.getString("datetaken"),
+                            datetaken,
                             jsonObj.getString("ownername"),
-                            descriptionContent.getString("_content")));
+                            descriptionContent.getString("_content"),
+                            buddyIcon,
+                            jsonObj.getString("latitude"),
+                            jsonObj.getString("longitude"))
+                    );
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.i ( "PHP", "Method Flickr JSON parser with error: " + e.toString () );
             }
         }
         return mImages;
     }
 
     //TODO
-    private boolean contains (JSONObject parsrObject, String key){
+    private static boolean contains (JSONObject parsrObject, String key){
         return (parsrObject != null && parsrObject.has(key) && !parsrObject.isNull(key)) ? true : false ;
     }
 

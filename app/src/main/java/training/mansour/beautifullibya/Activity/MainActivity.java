@@ -4,6 +4,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ComponentName;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -18,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import me.tatarka.support.job.JobInfo;
 import me.tatarka.support.job.JobScheduler;
@@ -33,24 +37,26 @@ public class MainActivity extends AppCompatActivity
     private final static int INITIAL_FRAGMENT = 0;
     private final static int SECOND_FRAGMENT = 1;
     private final static int FLICKR_FRAGMENT = 2;
-    private static final int JOB_ID = 100;
+    private static final int RUN_SERVICE_TO_DOWNLOAD_FLICKR_JSON = 100;
     private int CurrentFragment ;
     private JobScheduler jobScheduler;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        jobScheduler = JobScheduler.getInstance(this);
+/*        jobScheduler = JobScheduler.getInstance(this);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 jobConstruction();
             }
-        },60000);
+        },3000);*/
 
         if(savedInstanceState == null){
             swithPage(new InitialFragment());
@@ -131,10 +137,13 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             swithPage(new InitialFragment());
+            toolbar.setTitle ( item.getTitle () );
         } else if (id == R.id.nav_gallery) {
             swithPage(new SecondFragment());
+            toolbar.setTitle ( item.getTitle () );
         } else if (id == R.id.nav_slideshow) {
             swithPage(new FlickrGroupPhotos());
+            toolbar.setTitle ( item.getTitle () );
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -157,10 +166,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void jobConstruction() {
-        JobInfo.Builder builder = new JobInfo.Builder(JOB_ID, new ComponentName(this, MyService.class));
-        builder.setPeriodic(5000)
+
+        JobInfo.Builder builder = new JobInfo.Builder(RUN_SERVICE_TO_DOWNLOAD_FLICKR_JSON,
+                new ComponentName(this, MyService.class));
+        //TODO make the time interval longer for example 12 hours
+        builder.setPeriodic(120000)
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
+                //.setBackoffCriteria ( 600000, JobInfo.BACKOFF_POLICY_LINEAR )
                 .setPersisted(true);
         jobScheduler.schedule(builder.build());
+
     }
 }

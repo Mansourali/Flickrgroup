@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package training.mansour.beautifullibya.Network;
+package training.mansour.beautifullibya.Extras;
 
 import android.content.Context;
 import android.view.animation.AnimationUtils;
@@ -45,8 +45,9 @@ public class FadeInImageListener implements ImageLoader.ImageListener {
 	
 	@Override
 	public void onErrorResponse(VolleyError arg0) {
+		//TODO change the default image
 		if(mImageView.get() != null) {
-			mImageView.get().setImageResource(R.drawable.ic_menu_gallery);
+			//mImageView.get().setImageResource(R.drawable.error_background);
 		}
 	}
 
@@ -57,8 +58,6 @@ public class FadeInImageListener implements ImageLoader.ImageListener {
 			if(response.getBitmap() != null) {
                 image.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
                 image.setImageBitmap(response.getBitmap());
-			} else {
-				image.setImageResource(R.drawable.ic_menu_camera);
 			}
 		}
 	}

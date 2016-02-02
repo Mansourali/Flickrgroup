@@ -1,47 +1,11 @@
 package training.mansour.beautifullibya.Fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.ComponentCallbacks;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import training.mansour.beautifullibya.MyApplication;
-import training.mansour.beautifullibya.Network.FadeInImageListener;
-import training.mansour.beautifullibya.Network.VolleySinglton;
 import training.mansour.beautifullibya.R;
 
 public class InitialFragment extends Fragment {

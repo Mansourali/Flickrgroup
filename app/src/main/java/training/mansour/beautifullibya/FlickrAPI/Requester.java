@@ -1,6 +1,7 @@
 package training.mansour.beautifullibya.FlickrAPI;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -13,24 +14,24 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import training.mansour.beautifullibya.MyApplication;
+
 /**
  * Created by Mansour on 29/01/2016.
  */
 
-public class Requestor {
+public class Requester {
     public static JSONObject requestFlickrPhotosJSON(RequestQueue requestQueue, String FlickrPhtotoUrl) {
         JSONObject response = null;
         RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
-
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                 FlickrPhtotoUrl,
                 (String)null, requestFuture, requestFuture);
 
-
         requestQueue.add(request);
         try {
-            response = requestFuture.get(12, TimeUnit.HOURS);
+            response = requestFuture.get(5000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             Log.e("PHP", e.toString());
         } catch (ExecutionException e) {
