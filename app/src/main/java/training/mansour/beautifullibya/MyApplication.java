@@ -9,7 +9,7 @@ import android.content.Context;
 public class MyApplication extends Application {
 
     private static MyApplication mInstance;
-    public static final String FLICKR_API_KEY = "ee91e6f9cedcf5a3f9951d69671117c0";
+    public static final String FLICKR_API_KEY = "";
 
     @Override
     public void onCreate() {
